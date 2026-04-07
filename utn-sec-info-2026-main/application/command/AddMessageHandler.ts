@@ -5,7 +5,7 @@ export class AddMessageHandler {
 
     constructor() {
         this._groq = new Groq({
-            apiKey: "",
+            apiKey: process.env.APIKEY,
         });
     }
 
