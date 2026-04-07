@@ -4,7 +4,7 @@ import { AddMessageHandler, AddMessageCommand, AddMessageResponse } from '@/appl
 const addMessageCommandHandler = async (request: NextRequest): Promise<NextResponse> => {
     try {
         const handler = new AddMessageHandler()
-        
+
         const command: AddMessageCommand = await request.json()
         const response = await handler.handle(command)
 
