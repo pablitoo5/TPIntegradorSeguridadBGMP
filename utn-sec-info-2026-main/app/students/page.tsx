@@ -3,11 +3,31 @@
 import { useEffect, useState } from "react"
 import { useStudents } from "@/app/hooks/useStudents"
 import { useStudentsStore, Student } from "@/app/store/students"
+import { useUser } from '@clerk/nextjs'
 
 export default function StudentsPage() {
+  const { user } = useUser()
+  const rawRole = user?.publicMetadata?.role as string | undefined
+  const hasRole = rawRole && rawRole.trim() !== ""
   const { fetchStudents } = useStudents()
   const { students } = useStudentsStore()
   const [isLoading, setIsLoading] = useState(true)
+  /* Verifica si se tiene rol, de lo contrario, no deja ver el /students */
+  if (!hasRole) {
+    return (
+     <div className="flex flex-col items-center justify-center h-full w-full px-6 text-center">
+              <div className="w-16 h-16 bg-zinc-200 dark:bg-zinc-800 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-zinc-500 dark:text-zinc-400">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-2">Acceso Restringido</h2>
+              <p className="text-zinc-600 dark:text-zinc-400 max-w-md">
+                Tu cuenta ha sido verificada, pero aún no tienes un rol asignado. Por favor, comunícate con un administrador para que habilite tu acceso al sistema.
+              </p>
+      </div>
+    )
+  }
 
   useEffect(() => {
     const loadStudents = async () => {
