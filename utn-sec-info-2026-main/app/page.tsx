@@ -24,6 +24,17 @@ export default function Home() {
   const [dailyMessageCount, setDailyMessageCount] = useState(0)
   const MAX_MESSAGES = 10
 
+  // Añade esto en cualquier parte de tu código para forzar un error
+function testSecurity() {
+  // Vulnerabilidad: Contraseña en texto plano
+  const dbPassword = "super_secret_password_123"; 
+  
+  // Code Smell: Variable declarada pero nunca usada
+  const unusedVariable = "hola mundo";
+  
+  console.log("Probando pipeline con clave:", dbPassword);
+}
+
   useEffect(() => {
     const today = new Date().toLocaleDateString()
     const storedData = localStorage.getItem('securecampus_limit')
