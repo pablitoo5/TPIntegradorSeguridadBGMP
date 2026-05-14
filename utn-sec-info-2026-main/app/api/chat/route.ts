@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { AddMessageHandler, AddMessageCommand, AddMessageResponse } from '@/application/command/AddMessageHandler'
+import { withApiRoute } from '@/app/lib/withApiRoute'
 
 const addMessageCommandHandler = async (request: NextRequest): Promise<NextResponse> => {
     try {
@@ -18,4 +19,4 @@ const addMessageCommandHandler = async (request: NextRequest): Promise<NextRespo
     }
 }
 
-export const POST = addMessageCommandHandler
+export const POST = withApiRoute(addMessageCommandHandler)
