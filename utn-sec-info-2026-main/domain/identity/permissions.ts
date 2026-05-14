@@ -10,20 +10,21 @@ export enum PERMISSION {
     VIEW_PRIVATE_INFO = 'info.private' // Lo que habías puesto de "Información Privada"
 }
 
-export const PERMISSIONS_BY_ROLE = [
-    // --- ADMIN: Tiene control total ---
-    { role: ROLES.Admin, permission: PERMISSION.HOME_CHAT },
-    { role: ROLES.Admin, permission: PERMISSION.STUDENTS_LIST },
-    { role: ROLES.Admin, permission: PERMISSION.CLEAR_CHAT },
-    { role: ROLES.Admin, permission: PERMISSION.VIEW_PRIVATE_INFO },
-
-    // --- DOCENTE: Puede ver alumnos y limpiar chat ---
-    { role: ROLES.Docente, permission: PERMISSION.HOME_CHAT },
-    { role: ROLES.Docente, permission: PERMISSION.STUDENTS_LIST },
-    { role: ROLES.Docente, permission: PERMISSION.CLEAR_CHAT },
-    { role: ROLES.Docente, permission: PERMISSION.VIEW_PRIVATE_INFO },
-
-    // --- ESTUDIANTE: Solo puede usar el chat y ver el listado de alumnos ---
-    { role: ROLES.Estudiante, permission: PERMISSION.HOME_CHAT },
-    { role: ROLES.Estudiante, permission: PERMISSION.STUDENTS_LIST },
-]
+export const PERMISSIONS_BY_ROLE: Record<string, PERMISSION[]> = {
+    [ROLES.Admin]: [
+        PERMISSION.HOME_CHAT,
+        PERMISSION.STUDENTS_LIST,
+        PERMISSION.CLEAR_CHAT,
+        PERMISSION.VIEW_PRIVATE_INFO
+    ],
+    [ROLES.Docente]: [
+        PERMISSION.HOME_CHAT,
+        PERMISSION.STUDENTS_LIST,
+        PERMISSION.CLEAR_CHAT,
+        PERMISSION.VIEW_PRIVATE_INFO
+    ],
+    [ROLES.Estudiante]: [
+        PERMISSION.HOME_CHAT,
+        PERMISSION.STUDENTS_LIST
+    ]
+};
